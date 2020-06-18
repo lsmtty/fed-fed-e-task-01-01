@@ -1,5 +1,3 @@
-import { promises } from "fs-extra";
-
 const enum PromiseStatus {
     Pending,
     Fullfilled,
