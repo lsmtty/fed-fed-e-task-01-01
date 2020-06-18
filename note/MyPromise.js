@@ -102,6 +102,18 @@ class MyPromise{
         return promise2;
     }
 
+    finally(callback) { // 回调函数可能也返回一个promise, 需要等待该promise执行
+        return this.then((value) => {
+           return MyPromise.resolve(callback()).then(() => value);
+        }, (reason) => {
+            return MyPromise.resolve(callback()).then(() => { throw reason });
+        });
+    }
+
+    catch(failCallback) {
+        return this.then(undefined, failCallback);
+    }
+
     resolvePromise(promise2, x, resolve, reject) {
         if(promise2 == x) {
             return reject(new TypeError('Chaning circle '))
